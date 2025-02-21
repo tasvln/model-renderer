@@ -1,0 +1,39 @@
+# Build directories
+/build/
+/bin/
+/lib/
+/obj/
+
+# CMake files
+/CMakeFiles/
+/CMakeCache.txt
+Makefile
+cmake_install.cmake
+
+# Compiled binaries and libraries
+*.o
+*.so
+*.a
+*.exe
+*.dll
+*.dylib
+*.out
+
+# IDE specific files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# macOS specific
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+*.swo
+*.swn
+*.bak
