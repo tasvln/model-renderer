@@ -9,6 +9,6 @@ find_package(OpenGL REQUIRED)
 
 include_directories(${CMAKE_SOURCE_DIR}/src/include)
 
-add_executable(RENDEL main.cpp src/glad.c ext/window/window.cpp)
+add_executable(RENDEL main.cpp src/glad.c ext/window/window.cpp ext/renderer/renderer.cpp ext/shade/shade.cpp)
 
 target_link_libraries(RENDEL glfw OpenGL::GL)

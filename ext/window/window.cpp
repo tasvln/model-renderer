@@ -14,6 +14,10 @@ namespace win
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+#ifdef __APPLE__
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
+
     window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
     if (!window)
     {
@@ -23,10 +27,17 @@ namespace win
     }
 
     glfwMakeContextCurrent(window);
-    glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
+
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+      std::cerr << "Failed to initialize GLAD" << std::endl;
+      exit(-1);
+    }
+
+    // glViewport(0, 0, width, height);
   }
 
-  ~Window::Window()
+  Window::~Window()
   {
     clear();
   }
@@ -55,10 +66,5 @@ namespace win
   GLFWwindow *Window::getGLFWwindow() const
   {
     return window;
-  }
-
-  void Window::framebufferSizeCallback(GLFWwindow *window, int width, int height)
-  {
-    glViewport(0, 0, width, height);
   }
 }

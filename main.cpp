@@ -5,15 +5,11 @@ int main()
   string title = "RenDel";
   Window window(WINDOW_WIDTH, WINDOW_HEIGHT, title);
 
-  if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-  {
-    std::cerr << "Failed to initialize GLAD" << std::endl;
-    return -1;
-  }
+  Renderer renderer;
 
-  while (!window.shouldClose())
+  while (!window.checkIfClosed())
   {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    renderer.render();
 
     window.swapBuffers();
     window.pollEvents();

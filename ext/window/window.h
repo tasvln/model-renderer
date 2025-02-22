@@ -1,6 +1,7 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <string>
 #include <iostream>
@@ -13,7 +14,6 @@ namespace win
   {
   private:
     GLFWwindow *window;
-    static void framebufferSizeCallback(GLFWwindow *window, int width, int height);
 
   public:
     Window(int width, int height, const string &title);
@@ -21,15 +21,14 @@ namespace win
 
     // getters
     bool checkIfClosed() const;
-    void pollEvents() const;
-    void swapBuffers() const;
     GLFWwindow *getGLFWwindow() const;
 
     // triggers
+    void pollEvents() const;
+    void swapBuffers() const;
 
     // functions
     void clear();
-    void framebufferSizeCallback(GLFWwindow *window, int width, int height);
   };
 }
 

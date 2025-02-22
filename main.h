@@ -1,16 +1,16 @@
 #define GLAD_GL_IMPLEMENTATION
 #include "glad/glad.h"
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb/stb_image.h"
 // #define GLFW_INCLUDE_GLCOREARB
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <string>
 
 #include "ext/window/window.h"
+#include "ext/renderer/renderer.h"
 
 using namespace std;
 using namespace win;
+using namespace rndr;
 
 // global variables
 const int WINDOW_WIDTH = 800;
