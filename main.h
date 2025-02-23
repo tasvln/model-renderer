@@ -44,3 +44,5 @@ float lastFrame = 0.0f;
 bool isMousePressed = false;
 float modelRotationX = 0.0f;
 float modelRotationY = 0.0f;
+
+bool useGPU = true;

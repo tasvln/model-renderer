@@ -85,7 +85,7 @@ void scrollCallback(GLFWwindow *window, double xoffset, double yoffset)
 
 int main()
 {
-  string title = "rendel";
+  string title = "RenDel";
 
   Window window(WINDOW_WIDTH, WINDOW_HEIGHT, title);
 
@@ -99,12 +99,9 @@ int main()
 
   glEnable(GL_DEPTH_TEST);
 
-  // Renderer renderer;
+  Shader shader("src/textures/model.vert", "src/textures/model.frag");
 
-  Shader shader("src/textures/shader.vert", "src/textures/shader.frag");
-
-  Model model("src/obj/backpack/backpack.obj");
-  // Model model("src/obj/cottage/cottage.obj");
+  Model model("[path/model]");
 
   while (!window.checkIfClosed())
   {
@@ -115,7 +112,7 @@ int main()
     deltaTime = currentFrame - lastFrame;
     lastFrame = currentFrame;
 
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     shader.use();
