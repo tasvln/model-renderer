@@ -7,7 +7,7 @@
 - Rotate models sideways
 - Zoom in and out with WASD
 - Add model path <code>Model model("[path/model]");</code> in main.cpp file
-- Model structure—same as instructed on opengl's offical docs
+- Model structure—same as instructed on opengl's official docs
 - <code>ext/[project classes]</code>
 
 ### Installation
