@@ -3,10 +3,18 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
 #include <string>
 #include <iostream>
 
+#include <glcam/glcam.h>
+
+#include "../model/model.h"
+
+#include <stb/stb_image.h>
+
 using namespace std;
+using namespace mdl;
 
 namespace win
 {

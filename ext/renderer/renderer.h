@@ -3,7 +3,7 @@
 
 #include <glad/glad.h>
 #include <iostream>
-#include "stb/stb_image.h"
+// #include "stb/stb_image.h"
 #include "../shade/shade.h"
 
 using namespace std;
@@ -14,7 +14,6 @@ namespace rndr
   class Renderer
   {
   private:
-    unsigned int vao, vbo;
     unsigned int vertexShader, fragShader, shaderProgram;
     const char *vertexShaderSource, *fragShaderSource;
 
