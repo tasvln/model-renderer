@@ -16,7 +16,6 @@
 #include "ext/window/window.h"
 #include "ext/renderer/renderer.h"
 #include "ext/model/model.h"
-#include "ext/glbugui/glbugui.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
@@ -26,7 +25,6 @@ using namespace glm;
 using namespace win;
 using namespace rndr;
 using namespace mdl;
-using namespace glbugui;
 
 // global variables or settings
 const int WINDOW_WIDTH = 1200;

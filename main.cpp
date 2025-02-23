@@ -1,14 +1,5 @@
 #include "main.h"
 
-void setOrthographicProjectionForText(int width, int height)
-{
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-  glOrtho(0, width, height, 0, -1, 1); // This will make the text render in 2D
-  glMatrixMode(GL_MODELVIEW);
-  glLoadIdentity();
-}
-
 void processInput(GLFWwindow *window)
 {
   if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -110,64 +101,40 @@ int main()
 
   // Renderer renderer;
 
-  Shader modelShader("src/textures/model.vert", "src/textures/model.frag");
-  Shader textShader("src/textures/text.vert", "src/textures/text.frag");
+  Shader shader("src/textures/shader.vert", "src/textures/shader.frag");
 
   Model model("src/obj/backpack/backpack.obj");
   // Model model("src/obj/cottage/cottage.obj");
 
-  int counter;
-
-  GlBugUi ui(window.getGLFWwindow(), "src/fonts/inter.ttf");
-
-  vec4 textColor(1.0f, 1.0f, 1.0f, 1.0f);
-
-  ui.addElement<glbugui::Text>(200, 200, "Static Text", textColor);
-  // ui.addElement<glbugui::Text>(1.0f, 1.0f, [&]()
-  //                              { return "Counter: " + std::to_string(counter); }, textColor);
-
   while (!window.checkIfClosed())
   {
-    counter++;
     processInput(window.getGLFWwindow());
     window.pollEvents();
+    // renderer.render();
     float currentFrame = static_cast<float>(glfwGetTime());
     deltaTime = currentFrame - lastFrame;
     lastFrame = currentFrame;
 
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // Render 3D model
-    modelShader.use();
+    shader.use();
 
-    // Apply 3D perspective projection and camera view for model
+    // view/projection transformations
     mat4 projection = perspective(radians(camera.Zoom), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.0f);
     mat4 view = camera.GetViewMatrix();
-    modelShader.setMat4("projection", projection);
-    modelShader.setMat4("view", view);
+    shader.setMat4("projection", projection);
+    shader.setMat4("view", view);
 
-    // Render model
+    // render the loaded model
     mat4 matModel = mat4(1.0f);
-    matModel = translate(matModel, vec3(0.0f, 0.0f, 0.0f));
-    matModel = scale(matModel, vec3(1.0f, 1.0f, 1.0f));
-    matModel = rotate(matModel, radians(modelRotationY), vec3(0.0f, 1.0f, 0.0f));
-    modelShader.setMat4("model", matModel);
-    model.draw(modelShader);
+    matModel = translate(matModel, vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
+    matModel = scale(matModel, vec3(1.0f, 1.0f, 1.0f));     // it's a bit too big for our scene, so scale it down
+    // matModel = rotate(matModel, radians(modelRotationX), vec3(1.0f, 0.0f, 0.0f)); // Rotate around X
+    matModel = rotate(matModel, radians(modelRotationY), vec3(0.0f, 1.0f, 0.0f)); // Rotate around the Y axis
+    shader.setMat4("model", matModel);
+    model.draw(shader);
 
-    // Switch to orthographic projection for 2D text rendering
-    setOrthographicProjectionForText(WINDOW_WIDTH, WINDOW_HEIGHT);
-
-    // Disable depth test to make sure text is rendered above the 3D scene
-    glDisable(GL_DEPTH_TEST);
-
-    // Render text
-    textShader.use();
-    ui.render();
-
-    // Re-enable depth test for 3D rendering
-    glEnable(GL_DEPTH_TEST);
-
-    // Swap buffers
     window.swapBuffers();
   }
 
